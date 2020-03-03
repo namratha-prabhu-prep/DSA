@@ -19,7 +19,7 @@ public class SelectionSort {
              */
             min = i;
             for(int j = i+1; j < arr.length; j++) {
-                if(arr[i] > arr[j]) {
+                if(arr[min] > arr[j]) {
                     min = j;
                 }
             }
