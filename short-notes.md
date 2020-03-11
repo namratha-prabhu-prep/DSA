@@ -131,3 +131,106 @@
 
 ###### <u>Heaps</u>
 
+* It is a tree with some special properties
+
+* Basic requirements 
+
+  1. Value of a node must be `>=` or `<=` the values of its children.
+
+     This is also called as **heap property**
+
+  2. All leaves should be at h or h-1 (complete binary tree)
+
+  3. Heap should form a complete Btree
+
+  Below mentioned heap is an invalid heap, because 
+
+  (11 > 5,2) (5 < 6,17) (2 < 14,13) All parent nodes must have the same property (> or <)
+
+  ```
+      11
+     /   \
+    5     2
+   / \   / \
+  6  17 14 13
+  ```
+
+* Types of Heaps
+
+  1. **Min heap**: value of a node should be <= to values of its children
+  2. **Max heap**: value of a node should be >= to values of its children
+  3. **Binary heap**: 
+     * Each node can have up to 2 children
+     * It is implemented using arrays (unlike BTs where BTs are implemented using stack)
+     * Heaps are complete binary trees, so there wont be any wastage of memory locations
+
+* **Why heaps are implemented using arrays and not trees? [like BTree using stacks]**
+
+  1. Lower memory usage(no need to store 3 pointer)
+  2. Easier memory management i.e just one object is allocated instead of n
+  3. Better locality of reference (Items in heap are relatively closer together in memory)
+  4. Using arrarys is a good choice if we know that data is constant
+  5. If the heap size grows deeper, then this array has to be copied to a larger array and this is time expensive.
+
+* **Finding the parent of a node**
+
+  * For a node at `ith` location, its parent is at `(i-1)/2` location
+
+    i.e Node at i = parent at ((i-1)/2) location.
+
+    ```
+        17
+       /   \
+     13     6
+     / \   / \
+    1   4 2   5
+    ```
+
+    In the above example, if we consider node 6, it is at i=2, therefore its parent would be at (2-1)/2 = 1/2 = 0 i.e 0th location, which is node 17.
+
+* **Finding children of a node**
+
+  * For a parent node at `ith` location,
+    * **Left child** will be at **(2i+1)** location
+    * **Right child** will be at **(2i+2)** location
+
+* Main operations on a heap
+
+  1. **getMin()/getMax()**
+  2. **extractMin()/extractMax()**
+  3. **insert()/delete()**
+
+* **Max element** in max heap is always at root, i.e at arry[0]
+
+* **Heapifying an element**
+
+  The process of adjusting the  location of the inserted element in to heap and make it a heap again is called **heapifying**
+
+  * In a max heap, to heapify an element,
+    * find the maximum of its children and swap it with current element
+    * continue until heap property is satisfied at every node in the heap
+    * In heapifying process, 
+      1. **Percolate down**: The process of moving from top to bottom 
+      2. **Percolate up**: The process of moving from bottom to up
+  * **TC** of heapifying is **O(logn)**
+  * **SC** is **O(1)**
+  * If we are dealing with a n number of input elements to be inserted and heapified, it takes **O(nlogn)** time in total, because each insert takes **O(logn)** time and n elements take **O(nlogn)**
+  * *In a complete BTree of n nodes, there are n/2 leaf nodes and the leaf nodes always satisfies the heap property and no need to heapify them.*
+  * *We just have to heapify the remaining n/2 non leaf nodes.* 
+
+* **Deleting an element from a heap**
+
+  * In a standard heap, deleting a max element is only allowed
+  * So, deleting an element from a heap is just deleting the first element (root) from the heap
+  * copy the root in to some variable
+  * Then, copy the last element in to the root
+  * Then **percolate down**
+  * **TC** is **O(logn)**
+  * **SC** is **O(1)**
+
+* **Inserting an element in to a heap**
+
+  * Increase the heap size
+  * Keep new element at the end of the heap
+  * Then **perolate up**
+  * **TC** is **O(logn)**
