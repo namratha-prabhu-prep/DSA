@@ -3,84 +3,55 @@ package Heaps;
 import java.util.Arrays;
 
 public class MinHeap {
-    int[] heap;
-    int size;
-    int maxSize;
+    private void minHeapify(int[] heapArray, int index, int heapSize) {
+        int smallest = index;
 
-    public MinHeap(int capacity) {
-        this.size = 0;
-        this.maxSize = capacity;
-        this.heap = new int[maxSize+1];
-        this.heap[0] = Integer.MIN_VALUE;
-    }
-
-    public int parent(int pos) {
-        return pos/2;
-    }
-
-    public int leftChild(int pos) {
-        return 2*pos;
-    }
-
-    public int rightChild(int pos) {
-        return 2*pos + 1;
-    }
-
-    public void swap(int pos, int parentPos1) {
-        int temp = heap[pos];
-        heap[pos] = heap[parentPos1];
-        heap[parentPos1] = temp;
-    }
-
-    public void insert(int element) {
-        if(size >= maxSize) {
-            System.out.println("Heap is full");
-        } else {
-            heap[++size] = element;
-            int current = size;
-            while (heap[current] < heap[parent(current)]) {
-                swap(current, parent(current));
-                current = parent(current);
+        while (smallest < heapSize / 2) { // check parent nodes only
+            int left = (2 * index) + 1; //left child
+            int right = (2 * index) + 2; //right child
+            if (left < heapSize && heapArray[left] < heapArray[index]) {
+                smallest = left;
             }
+
+            if (right < heapSize && heapArray[right] < heapArray[smallest]) {
+                smallest = right;
+            }
+
+            if (smallest != index) { // swap parent with smallest child
+                int temp = heapArray[index];
+                heapArray[index] = heapArray[smallest];
+                heapArray[smallest] = temp;
+                index = smallest;
+            } else {
+                break; // if heap property is satisfied
+            }
+
+        } //end of while
+    }
+
+    public void buildMinHeap(int[] heapArray, int heapSize) {
+
+        // swap smallest child to parent node
+        for (int i = (heapSize - 1) / 2; i >= 0; i--) {
+            minHeapify(heapArray, i, heapSize);
         }
     }
 
-    public boolean isLeaf(int pos) {
-        if(pos >= size/2 && pos <= size){
-            return true;
-        } else return false;
-    }
-
-    public void minHeapify(int pos) {
-        if(!isLeaf(pos)){
-            if(heap[pos] > heap[leftChild(pos)] || heap[pos] > heap[rightChild(pos)]) {
-                if(heap[leftChild(pos)] < heap[rightChild(pos)]) {
-                    swap(pos, leftChild(pos));
-                    minHeapify(leftChild(pos));
-                } else {
-                    swap(pos, rightChild(pos));
-                    minHeapify(rightChild(pos));
-                }
-            }
-        }
-    }
-
-    public int extractMin() {
-        int popped = heap[1];
-        heap[1] = heap[size];
-        heap[size--] = 0;
-        minHeapify(1);
+    public int extractMin(int[] heapArray) {
+        int popped = heapArray[0];
+        heapArray[0] = heapArray[heapArray.length-1];
+        heapArray[heapArray.length-1] = 0;
+        buildMinHeap(heapArray, heapArray.length);
         return popped;
     }
 
-    public static void main(String[] args) {
-        MinHeap minHeap = new MinHeap(10);
-        minHeap.insert(5);
-        minHeap.insert(10);
-        minHeap.insert(4);
+    // TC same as Max heap
 
-        System.out.println(Arrays.toString(minHeap.heap));
-        minHeap.extractMin();
-        System.out.println(Arrays.toString(minHeap.heap));
+    public static void main(String[] args) {
+        int[] heapArray = { 31, 11, 7, 12, 15, 14, 9, 2, 3, 16 };
+        System.out.println("Before heapify: "+Arrays.toString(heapArray));
+        new MinHeap().buildMinHeap(heapArray, heapArray.length);
+        System.out.println("After heapify: "+Arrays.toString(heapArray));
+        System.out.println("Extract Min = " + new MinHeap().extractMin(heapArray));
     }
 }

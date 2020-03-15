@@ -1,8 +1,6 @@
-### Short Notes
+### Notes
 
-----
-
-###### <u>Stacks</u>
+####Stacks
 
 - LIFO, all operations at one end called **top** (initially set top = -1)
 
@@ -60,9 +58,9 @@
   - For **Incremental**: O(n^2)/n = **O(n)**
   - For **Doubling**: O(n)/n = **O(1)**
 
-----
+---
 
-######<u>Queues</u>
+####Queues
 
 - FIFO
 - Two pointers used:
@@ -92,7 +90,7 @@
 
 ----
 
-######<u>Priority Queues</u>
+####Priority Queues
 
 * Used to find max/min elements 
 
@@ -129,7 +127,7 @@
 
 ----
 
-###### <u>Heaps</u>
+####Heaps
 
 * It is a tree with some special properties
 
@@ -143,6 +141,26 @@
 
   3. Heap should form a complete Btree
 
+  A Heap uses *Complete Binary Trees* to avoid holes in the array. See the figure below to see the difference between that and an Incomplete Binary Tree:
+
+  ```
+  Complete BTree    
+      11
+     /   \
+    5     2
+   / \   / 
+  6  17 14 
+  
+  Incomplete BTree
+      11
+     /   \
+    5     2
+     \   / 
+     17 14 
+  ```
+
+
+
   Below mentioned heap is an invalid heap, because 
 
   (11 > 5,2) (5 < 6,17) (2 < 14,13) All parent nodes must have the same property (> or <)
@@ -155,14 +173,30 @@
   6  17 14 13
   ```
 
+* Elements of a Heap are not sorted. Largest ior smallest element is always placed at the top depending on what kind of heap we are using.
+
 * Types of Heaps
 
   1. **Min heap**: value of a node should be <= to values of its children
+
   2. **Max heap**: value of a node should be >= to values of its children
+
   3. **Binary heap**: 
+
      * Each node can have up to 2 children
+
      * It is implemented using arrays (unlike BTs where BTs are implemented using stack)
+
      * Heaps are complete binary trees, so there wont be any wastage of memory locations
+
+     * Can perform `insert()`, `delete()`, `extractmax()`, and `decreaseKey()` operations in O(logn) time
+
+     * Variations of Binary heaps: 
+
+       1. Binomial heap
+       2. Fibonacci heap
+
+       These variations can perform `union()` in O(logn) time where as Binary heap takes O(n)
 
 * **Why heaps are implemented using arrays and not trees? [like BTree using stacks]**
 
@@ -187,6 +221,14 @@
     ```
 
     In the above example, if we consider node 6, it is at i=2, therefore its parent would be at (2-1)/2 = 1/2 = 0 i.e 0th location, which is node 17.
+
+    **important**: All of the parent nodes are present in the first half of the array with the last parent at n/2th position(in this case at 2nd index) 
+
+    **Above heap placement in array**
+
+    | 0    | 1    | 2    | 3    | 4    | 5    | 6    |
+    | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+    | 17   | 13   | 6    | 1    | 4    | 2    | 5    |
 
 * **Finding children of a node**
 
@@ -234,3 +276,25 @@
   * Keep new element at the end of the heap
   * Then **perolate up**
   * **TC** is **O(logn)**
+
+  **MaxHeap Implementation**
+
+  Refer <https://github.com/namratha-prabhu/DSA/blob/master/src/main/java/Heaps/MaxHeap.java>
+
+  **MinHeap Implementation**
+
+  Refer <https://github.com/namratha-prabhu/DSA/blob/master/src/main/java/Heaps/MinHeap.java>
+
+* Deleting an element uses percolate down and inserting uses percolate up.
+
+* **Where are heaps used?**
+
+  1. **Order statistics**: For efficiently finding the smallest or largest element in an array.
+
+  2. **Priority Queues**: PQ's can be efficiently implemented using Binary heap because it supports insert, delete, extractMax, decreaseKey operations in O(logn) time.
+
+     We can use Binomoial Heaps and Fibonacci Heaps to perform union() in O(logn) time, where as Binary heap takes O(n) time.
+
+  3. Heap implemented PQ's are used in Graph algos like **Prim's algo and Dijkstra's algo**. 
+
+  4. **Sorting**: **HeapSort** is especially useful for sorting `arrays` because Heaps, unlike almost all other types of trees - are usually implemented in arrays, not as linked data structures!

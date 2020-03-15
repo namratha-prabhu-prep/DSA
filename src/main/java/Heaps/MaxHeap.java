@@ -3,84 +3,69 @@ package Heaps;
 import java.util.Arrays;
 
 public class MaxHeap {
-    int[] heap;
-    int size;
-    int maxSize;
-
-    public MaxHeap(int capacity){
-        this.size = 0;
-        this.maxSize = capacity;
-        this.heap = new int[maxSize+1];
-        this.heap[0] = Integer.MAX_VALUE;
-    }
-
-    public int parent(int pos){
-        return pos/2;
-    }
-
-    public int leftChild(int pos){
-        return 2*pos;
-    }
-
-    public int rightChild(int pos){
-        return 2*pos+1;
-    }
-
-    public boolean isLeaf(int pos) {
-        if(pos >= size/2 && pos <= size) {
-            return true;
-        } else return false;
-    }
-
-    public void swap(int parPos, int pos){
-        int temp = heap[pos];
-        heap[pos] = heap[parPos];
-        heap[parPos] = temp;
-    }
-
-    public void insert(int element) {
-        if(size >= maxSize){
-            System.out.println("Heap is full");
-        } else {
-            heap[++size] = element;
-            int current = size;
-            while(heap[parent(current)] < heap[current]){
-                swap(parent(current), current);
-                current = parent(current);
-            }
+    // Given a heap as an array convert it to a max heap
+    public void buildMaxHeap(int[] arr, int size) {
+        // we start the value of i = size-1/2 because to heapify we start from last element in the array
+        for(int i =  (size-1)/2; i >= 0; i--) {
+            maxHeapify(arr, i, size);
         }
     }
 
-    public void maxHeapify(int pos) {
-        if(!isLeaf(pos)){
-            if(heap[pos] < heap[leftChild(pos)] || heap[pos] < heap[rightChild(pos)]) {
-                if(heap[leftChild(pos)] > heap[rightChild(pos)]) {
-                    swap(leftChild(pos), pos);
-                    maxHeapify(leftChild(pos));
-                } else {
-                    swap(rightChild(pos), pos);
-                    maxHeapify(rightChild(pos));
-                }
+    public void maxHeapify(int[] heapArr, int index, int size) {
+        // because after largest > size/2, it would be the leaf nodes,
+        // because the last parent would be located at size/2
+        int largest = index;
+        while(largest < size/2) {
+            int left = (2*index + 1);
+            int right = (2*index + 2);
+            // checking if the parent is smaller than left child.
+            // If true assign the largest index as the left index
+            if(left < size && heapArr[largest] < heapArr[left]) {
+                largest = left;
             }
+            // checking if the parent is smaller than right child.
+            // If true assign the largest index as the right index.
+            // At this point you would have checked if parent > left and parent > right
+            // and left >= or <= right
+            if(right < size && heapArr[largest] < heapArr[right]) {
+                largest = right;
+            }
+            // if the largest is not the actual parent index you started, then swap with the parent index and
+            // the largest child index
+            if(largest != index) {
+                int temp = heapArr[index];
+                heapArr[index] = heapArr[largest];
+                heapArr[largest] = temp;
+                // So that we know th
+                index = largest;
+            }
+            // if heap property is satisfied
+            else break;
         }
     }
-
-    public int extractMax(){
-        int popped = heap[1];
-        heap[1] = heap[size];
-        heap[size--] = 0;
-        maxHeapify(1);
+    public int extractMax(int[] heapArray){
+        int popped = heapArray[0];
+        heapArray[0] = heapArray[heapArray.length-1];
+        heapArray[heapArray.length-1] = 0;
+        buildMaxHeap(heapArray, heapArray.length);
         return popped;
     }
+    // Tc for maxHeapify is O(logn)
+    // TC for buildMaxHeap is
+    // 1. for very loose upper bound it is O(nlogn) because,
+    // heapify func is called n times and heapify func takes O(logn) time
+    // 2. for more accurate tight upper bound the build heap func takes O(n) time.
 
     public static void main(String[] args) {
-        MaxHeap maxHeap = new MaxHeap(10);
-        maxHeap.insert(5);
-        maxHeap.insert(25);
-        maxHeap.insert(50);
-        System.out.println(Arrays.toString(maxHeap.heap));
-        maxHeap.extractMax();
-        System.out.println(Arrays.toString(maxHeap.heap));
+        int[] heapArray = {1, 4, 7, 12, 15, 14, 9, 2, 3, 16};
+        System.out.println("Before max heapifying "
+                + Arrays.toString(heapArray));
+        new MaxHeap().buildMaxHeap(heapArray, heapArray.length);
+        System.out.println("After max heapifying "
+                + Arrays.toString(heapArray));
+        System.out.println("Extract max = " + new MaxHeap().extractMax(heapArray));
+        System.out.println("After extract max "
+                + Arrays.toString(heapArray));
     }
 
 }
