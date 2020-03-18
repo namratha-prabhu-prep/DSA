@@ -1,6 +1,6 @@
-### Notes
+#Notes
 
-####Stacks
+##Stacks
 
 - LIFO, all operations at one end called **top** (initially set top = -1)
 
@@ -60,7 +60,7 @@
 
 ---
 
-####Queues
+##Queues
 
 - FIFO
 - Two pointers used:
@@ -88,46 +88,11 @@
   - **TC** is **O(1)**
   - **SC** is **O(n)**
 
-----
 
-####Priority Queues
 
-* Used to find max/min elements 
+---
 
-* processing is done based on priority instead of FIFO. Eg: Job scheduling, which is prioritized instead of serving in FIFO
-
-* **Types**
-
-  * **Ascending PQ**: If the item with smallest key has the highest priority (delete smallest element always)
-  * **Descending PQ**If the item with largest key has the highest priority (delete max element always): 
-
-* **Operations**
-
-  * **Insert(key, data)**: Inserts data with key to PQ. Elements are ordered based on key
-  * **Delete Min **/**Delete Max**
-  * **GetMin**/**GetMax**
-
-* **Auxiliary operations**
-
-  * **Kth smallest/Kth largest**: returns Kth smallest/Kth largest key in PQ
-  * **Size**
-  * **Heap sort**: sorts the lemets in the PQ based on priority (key)
-
-* **Implementations**
-
-  | Implementation                                               | Insertion               | Deletion |
-  | ------------------------------------------------------------ | ----------------------- | -------- |
-  | Unordered Array Impl                                         | O(1)                    | O(n)     |
-  | Unordered list Impl                                          | O(1)                    | O(n)     |
-  | ordered Array Impl                                           | O(n) because of sorting | O(1)     |
-  | ordered list Impl                                            | O(n) because of sorting | O(1)     |
-  | Binary Search Trees Impl                                     | O(logn)                 | O(logn)  |
-  | Balances BST impl                                            | O(logn)                 | O(logn)  |
-  | Binary Heap impl<br /> (Search takes O(logn), <br />finding max/min takes O(1)) | O(logn)                 | O(logn)  |
-
-----
-
-####Heaps
+##Heaps
 
 * It is a tree with some special properties
 
@@ -182,6 +147,8 @@
   2. **Max heap**: value of a node should be >= to values of its children
 
   3. **Binary heap**: 
+
+     * In practice Binary heaps are enough and we concentrate on binary min and binary max heaps.
 
      * Each node can have up to 2 children
 
@@ -270,6 +237,10 @@
   * **TC** is **O(logn)**
   * **SC** is **O(1)**
 
+* **Search for an element in a heap** 
+
+  * **TC** is O(n), because we have to go through all the elements and the heapify func doesn't help with this operation.
+
 * **Inserting an element in to a heap**
 
   * Increase the heap size
@@ -298,3 +269,53 @@
   3. Heap implemented PQ's are used in Graph algos like **Prim's algo and Dijkstra's algo**. 
 
   4. **Sorting**: **HeapSort** is especially useful for sorting `arrays` because Heaps, unlike almost all other types of trees - are usually implemented in arrays, not as linked data structures!
+
+---
+
+## Priority Queues
+
+* PQ is an extension of queue with following properties
+
+  * Every item has a priority associated with it
+  * An element with high priority is dequeued before an element with low priority i.e the order in which the elements enter the queue may not be the same in which they are processed.
+  * if two elements have the same priority, they are served according to their order in the queue
+  * In java PQ has a default initial capacity of 11, which can be overridden using **initialCapacity** parameter in appropriate constructor.
+  * PriorityQueue is **not thread safe**. Use `PriorityBlockingQueue` in concurrent environment.
+  * PQ in java is self-order queue by elements' natural order, smallest at head, largest at rear. When we poll the queue, it returns the head object from the queue.
+  * Objects added to PriorityQueue MUST be comparable.
+  * It provides **O(log(n))** time for add and poll methods.
+
+* PQ supports the following operations
+
+  * **insert(item, priority)**
+  * **getMin()/getMax()** (also equivalent to **getHighestPriority**)
+  * **deleteMin()/deleteMax()** (also equivalent to **deleteHighestPriority()**)
+  * **Kth-smallest/kth largest()**
+  * **Size**
+  * **Heap sort**: sort elements in the PQ based on priority(key)
+
+* **Applications**:
+
+  1. **Job scheduling**: which is prioritized instead of serving in first come first serve
+  2. **Data Compression**: Huffman coding algorithm
+  3. **Shortest Path algos**: Dijkstra's algorithm
+  4. **Minimum spanning tree algos**: Prim's algo
+  5. **Event driven simulation**
+  6. **Selection problem**: Finding Kth smallest or largest element.
+
+* Types of PQ
+
+  1. **Ascending PQ**: if the item with the smallest key has the highest priority (i.e delete smallest element always because smallest element has highest priority)
+  2. **Descending PQ**: if the item with the largest key has the highest priority (i.e delete largest element always because largest element has highest priority)
+
+* **Implementations**
+
+  | Implementation                                               | Insertion               | Deletion |
+  | ------------------------------------------------------------ | ----------------------- | -------- |
+  | Unordered Array Impl                                         | O(1)                    | O(n)     |
+  | Unordered list Impl                                          | O(1)                    | O(n)     |
+  | ordered Array Impl                                           | O(n) because of sorting | O(1)     |
+  | ordered list Impl                                            | O(n) because of sorting | O(1)     |
+  | Binary Search Trees Impl                                     | O(logn)                 | O(logn)  |
+  | Balances BST impl                                            | O(logn)                 | O(logn)  |
+  | Binary Heap impl<br /> (Search takes O(logn), <br />finding max/min takes O(1)) | O(logn)                 | O(logn)  |
