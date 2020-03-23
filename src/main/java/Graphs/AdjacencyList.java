@@ -6,6 +6,7 @@ public class AdjacencyList {
     public static class Graph {
         int vertices;
         // array of LinkedList
+        // You can also use an ArrayList instead of LinkedList
         LinkedList<Integer> adjList[];
 
         public Graph(int v){
