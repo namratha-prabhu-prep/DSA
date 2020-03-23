@@ -497,7 +497,7 @@
     2. With odd number of vertices
        * the graph on the left has an odd number of nodes and they can be divided into two disjoint sets. All the cycles are only between even number of vertices.
        * ![Screen Shot 2020-03-22 at 3.47.46 PM](/Users/namrathaprabhu/Desktop/Screen Shot 2020-03-22 at 3.47.46 PM.png)
-       * A graph cannot be Bipartite if there are an odd number of vertices and has odd cycle i.e. a cycle between the odd number of vertices.
+       * A graph cannot be Bipartite if there are an odd number of vertices and has odd cycle i.e. a cycle between the odd number of vertices
 
   * **Types of Bipartite graph**
 
