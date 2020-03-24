@@ -43,14 +43,16 @@ public class BFSUsingAdjMatrix {
         vertices[0].visited = true;
         displayVertex(0);
         queue.add(0);
-        int v2;
 
         while(!queue.isEmpty()) {
-            int v1 = queue.remove();
-            while((v2=getAdjUnvisitedVertex(v1)) != -1) {
-                vertices[v2].visited = true;
-                displayVertex(v2);
-                queue.add(v2);
+            int nextInd = getAdjUnvisitedVertex(queue.peek());
+            if(nextInd == -1) {
+                queue.poll();
+            }
+            else {
+                vertices[nextInd].visited = true;
+                displayVertex(nextInd);
+                queue.add(nextInd);
             }
         }
         for(int i = 0; i < verticesCount; i++) {
