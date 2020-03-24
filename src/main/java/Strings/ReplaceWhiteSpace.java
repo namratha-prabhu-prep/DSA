@@ -1,4 +1,4 @@
-package ArraysAndStrings;
+package Strings;
 
 public class ReplaceWhiteSpace {
     public void replace(char[] str, int trueLength){

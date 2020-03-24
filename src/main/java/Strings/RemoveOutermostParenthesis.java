@@ -1,4 +1,4 @@
-package ArraysAndStrings;
+package Strings;
 
 // LeetCode: https://leetcode.com/problems/remove-outermost-parentheses/
 public class RemoveOutermostParenthesis {
