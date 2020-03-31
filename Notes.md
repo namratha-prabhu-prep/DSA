@@ -308,6 +308,13 @@
   1. **Ascending PQ**: if the item with the smallest key has the highest priority (i.e delete smallest element always because smallest element has highest priority)
   2. **Descending PQ**: if the item with the largest key has the highest priority (i.e delete largest element always because largest element has highest priority)
 
+* Problems involving finding the Kth something, i.e **Find Top 'K' elements pattern questions**
+
+  Refer
+
+  *  <https://github.com/namratha-prabhu-prep/DSA/blob/master/src/main/java/Heaps/FindKthSmallestElement.java> 
+  * <https://www.educative.io/courses/grokking-the-coding-interview/myJK6Wvj00R>
+
 * **Implementations**
 
   | Implementation                                               | Insertion               | Deletion |
