@@ -37,11 +37,33 @@ public class MostCommonWord {
         return ans;
     }
 
+    // Alternate approach
+    public String mostCommonWordNew(String paragraph, String[] banned) {
+        Map<String, Integer> map = new HashMap();
+        String para = paragraph.replaceAll(",", " ");
+        String[] words = para.replaceAll("[^a-zA-Z0-9 ]", "").toLowerCase().split("\\s+");
+        // Use set instead of list because, list takes O(n) for search, where as set takes O(1)
+        Set<String> bannedSet = new HashSet(Arrays.asList(banned));
+
+        for(String word : words) {
+            if(!bannedSet.contains(word)) {
+                map.put(word, map.getOrDefault(word, 0)+1);
+            }
+        }
+        return Collections.max(map.entrySet(), Map.Entry.comparingByValue()).getKey();
+    }
+
     public static void main(String[] args) {
         MostCommonWord commonWord = new MostCommonWord();
-        System.out.println(commonWord.mostCommonWord(
-                "Bob",
-                new String[]{}));
+//        System.out.println(commonWord.mostCommonWord(
+//                "Bob",
+//                new String[]{}));
+        System.out.println(commonWord.mostCommonWordNew(
+                "Bob hit a ball, the hit BALL flew far after it was hit.",
+                new String[]{"hit"}));
+        System.out.println(commonWord.mostCommonWordNew(
+                "a, a, a, a, b,b,b,c, c",
+                new String[]{"a"}));
 
     }
 }
